@@ -1,0 +1,25 @@
+{
+    "name": "hexlet/code",
+    "description": "Gendiff is a program for calculating the differences between two data structures",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Hexlet\\Code\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "sergeiwerty",
+            "email": "dshl.srp@gmail.com"
+        }
+    ],
+    "bin": [
+        "bin/gendiff"
+    ],
+    "require": {
+        "docopt/docopt": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
+}

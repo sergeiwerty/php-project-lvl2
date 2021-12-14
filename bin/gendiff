@@ -1,0 +1,50 @@
+#!/usr/bin/env php
+
+<?php
+
+namespace Gendiff;
+
+use Docopt\Handler;
+
+$autoloadPath1 = __DIR__ . '/../../../autoload.php';
+$autoloadPath2 = __DIR__ . '/../vendor/autoload.php';
+
+if (file_exists($autoloadPath1)) {
+    require_once $autoloadPath1;
+} else {
+    require_once $autoloadPath2;
+}
+
+$doc = <<<DOC
+Generate diff
+
+Usage:
+  gendiff (-h|--help)
+  gendiff (-v|--version)
+  gendiff [--format <fmt>] <firstFile> <secondFile>
+
+Options:
+  -h --help                     Show this screen
+  -v --version                  Show version
+  --format <fmt>                Report format [default: stylish]
+DOC;
+
+//$handler = new Handler(array(
+//    'help'=>true,
+//    'optionsFirst'=>false,
+//));
+//$handler->handle($doc, $argv);
+
+
+$params = array(
+    'argv' => array_slice($_SERVER['argv'], 1),
+    'help' => true,
+    'version' => null,
+    'optionsFirst' => false,
+);
+$args = Docopt::handle($doc, ['version' => '1.0']);
+
+function genDiff()
+{
+    return result;
+}
