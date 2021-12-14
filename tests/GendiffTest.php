@@ -18,13 +18,18 @@ class GendiffTest extends TestCase
 {
     public function testJSONEquals()
     {
-        $diffResult = `
-- follow: false
-  host: hexlet.io
-- proxy: 123.234.53.22
-- timeout: 50
-+ timeout: 20
-+ verbose: true
-        `;
+        getcwd();
+        chdir('./fixtures');
+        $dir = getcwd();
+        $dirFile = $dir . '/fixture1.json';
+        $dirContent = file_get_contents($dirFile);
+        $json = json_decode($dirContent, true);
+
+//        $correctAnswer = [];
+//        foreach ($json as $key => $value) {
+//            $correctAnswer[$key] = $value;
+//        }
+
+        $this->assertEquals($json, []);
     }
 }

@@ -46,5 +46,10 @@ $args = Docopt::handle($doc, ['version' => '1.0']);
 
 function genDiff()
 {
-    return result;
+    getcwd();
+    chdir('./fixtures');
+    $dir = getcwd();
+    $dirFile = $dir . '/fixture1.json';
+    $dirContent = file_get_contents($dirFile);
+    $json = json_decode($dirContent, true);
 }
