@@ -1,13 +1,11 @@
 #!/usr/bin/env php
 
 <?php
-
-namespace Gendiff;
-
-use Docopt\Handler;
-
 $autoloadPath1 = __DIR__ . '/../../../autoload.php';
 $autoloadPath2 = __DIR__ . '/../vendor/autoload.php';
+//namespace Gendiff;
+
+use Docopt\Handler;
 
 if (file_exists($autoloadPath1)) {
     require_once $autoloadPath1;
@@ -43,13 +41,16 @@ $params = array(
     'optionsFirst' => false,
 );
 $args = Docopt::handle($doc, ['version' => '1.0']);
+//$args = Docopt::handle($doc, '-h');
+//foreach ($args as $k=>$v)
+//    echo $k.': '.json_encode($v).PHP_EOL;
 
-function genDiff()
-{
-    getcwd();
-    chdir('./fixtures');
-    $dir = getcwd();
-    $dirFile = $dir . '/fixture1.json';
-    $dirContent = file_get_contents($dirFile);
-    $json = json_decode($dirContent, true);
-}
+//function genDiff()
+//{
+//    getcwd();
+//    chdir('./fixtures');
+//    $dir = getcwd();
+//    $dirFile = $dir . '/fixture1.json';
+//    $dirContent = file_get_contents($dirFile);
+//    $json = json_decode($dirContent, true);
+//}
