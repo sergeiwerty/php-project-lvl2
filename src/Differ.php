@@ -1,28 +1,23 @@
 <?php
-$autoloadPath1 = __DIR__ . '/../../../autoload.php';
-$autoloadPath2 = __DIR__ . '/../vendor/autoload.php';
-if (file_exists($autoloadPath1)) {
-    require_once $autoloadPath1;
-} else {
-    require_once $autoloadPath2;
-}
+//$autoloadPath1 = __DIR__ . '/../../../autoload.php';
+//$autoloadPath2 = __DIR__ . '/../vendor/autoload.php';
+//
+//if (file_exists($autoloadPath1)) {
+//    require_once $autoloadPath1;
+//} else {
+//    require_once $autoloadPath2;
+//}
+
+namespace Differ\Differ;
 
 use function Functional\sort;
 
-function genDiff()
+function generateDiff($firstPath, $secondPath, $style = '') : string
 {
-
-//    $path = '../' . getcwd();
-//    chdir('tests/fixtures');
-//    $dir = getcwd();
-////    $dirFile = '/fixture1.json';
-
-//    $path = getcwd();
-//    $console = "..{$path}/tests/fixtures/fixture1.json";
-//    $fileContent1 = file_get_contents('/home/user/development/php-project-lvl2/php-project-lvl2/tests/fixtures/fixture1.json');
-    $fileContent1 = file_get_contents('/home/user/development/php-project-lvl2/php-project-lvl2/tests/fixtures/fixture1.json');
-$my = realpath('../tests/fixtures/fixture2.json');
-    $fileContent2 = file_get_contents(realpath('/home/user/development/php-project-lvl2/php-project-lvl2/tests/fixtures/fixture3.json'));
+    $fileContent1 = file_get_contents(realpath($firstPath));
+    print_r($fileContent1);
+    $fileContent2 = file_get_contents(realpath(realpath($secondPath)));
+    print_r($fileContent2);
 
     $jsonToArr1 = json_decode($fileContent1, true);
     $jsonToArr2 = json_decode($fileContent2, true);
@@ -50,4 +45,4 @@ $my = realpath('../tests/fixtures/fixture2.json');
     return $resultString;
 }
 
-print_r(genDiff());
+//print_r(genDiff());
