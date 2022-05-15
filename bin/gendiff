@@ -19,8 +19,8 @@ $doc = <<<DOC
 Generate diff
 
 Usage:
-  gendiff (-h|--help)
-  gendiff (-v|--version)
+  bin/gendiff (-h|--help)
+  bin/gendiff (-v|--version)
   bin/gendiff [--format <fmt>] <firstFile> <secondFile>
 
 Options:
@@ -42,8 +42,9 @@ $params = array(
     'version' => null,
     'optionsFirst' => false,
 );
+//$args = Docopt::handle($doc, $params);
 $args = Docopt::handle($doc, ['version' => '1.0']);
-
+$my = $_SERVER;
 //function genDiff()
 //{
 //    getcwd();
@@ -58,11 +59,15 @@ $args = Docopt::handle($doc, ['version' => '1.0']);
 //$fileContent1 = file_get_contents('/home/user/development/php-project-lvl2/php-project-lvl2/tests/fixtures/fixture1.json');
 //$fileContent2 = file_get_contents('/home/user/development/php-project-lvl2/php-project-lvl2/tests/fixtures/fixture2.json');
 
-print_r(generateDiff($args['<firstFile>'], $args['<secondFile>']));
+//print_r(generateDiff($args['<firstFile>'], $args['<secondFile>'], $args['--format']));
+
+//foreach ($args as $k=>$v)
+//    echo $k.': '.json_encode($v).PHP_EOL;
+
 //$my = generateDiff($args['<firstFile>'], $args['<secondFile>']);
-//print_r(generateDiff('../tests/fixtures/fixture1.json', '..//tests/fixtures/fixture2.json', $args['--format']));
-print_r('my str');
+print_r(generateDiff('../tests/fixtures/fixture1.json', '../tests/fixtures/fixture2.json'));
+//print_r('my str');
 
 
 //$fileContent1 = file_get_contents('/home/user/development/php-project-lvl2/php-project-lvl2/tests/fixtures/fixture1.json');
-//$my = realpath('../tests/fixtures/fixture2.json');
+//generateDiff();

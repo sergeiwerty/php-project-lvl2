@@ -1,23 +1,18 @@
 <?php
-//$autoloadPath1 = __DIR__ . '/../../../autoload.php';
-//$autoloadPath2 = __DIR__ . '/../vendor/autoload.php';
-//
-//if (file_exists($autoloadPath1)) {
-//    require_once $autoloadPath1;
-//} else {
-//    require_once $autoloadPath2;
-//}
 
 namespace Differ\Differ;
 
 use function Functional\sort;
 
-function generateDiff($firstPath, $secondPath, $style = '') : string
+function generateDiff(string $firstPath, string $secondPath, string $style = ''): string
 {
-    $fileContent1 = file_get_contents(realpath($firstPath));
-    print_r($fileContent1);
-    $fileContent2 = file_get_contents(realpath(realpath($secondPath)));
-    print_r($fileContent2);
+    $absolutePath1 = __DIR__ . '/' . pathinfo($firstPath, PATHINFO_DIRNAME) . '/' . pathinfo($firstPath, PATHINFO_BASENAME);
+    $absolutePath2 = __DIR__ . '/' . pathinfo($secondPath, PATHINFO_DIRNAME) . '/' . pathinfo($secondPath, PATHINFO_BASENAME);
+
+    $fileContent1 = file_get_contents($absolutePath1);
+
+    $fileContent2 = file_get_contents($absolutePath2);
+//    print_r($secondPath);
 
     $jsonToArr1 = json_decode($fileContent1, true);
     $jsonToArr2 = json_decode($fileContent2, true);
@@ -45,4 +40,4 @@ function generateDiff($firstPath, $secondPath, $style = '') : string
     return $resultString;
 }
 
-//print_r(genDiff());
+//print_r(generateDiff('../tests/fixtures/fixture1.json', '../tests/fixtures/fixture2.json'));
