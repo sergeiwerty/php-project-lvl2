@@ -7,6 +7,11 @@ use function Functional\sort;
 function generateDiff(string $firstPath, string $secondPath, string $style = ''): string
 {
     $absolutePath1 = __DIR__ . '/' . pathinfo($firstPath, PATHINFO_DIRNAME) . '/' . pathinfo($firstPath, PATHINFO_BASENAME);
+    print_r($absolutePath1);
+    print_r("\n");
+    print_r(__DIR__);
+    print_r("\n");
+    var_dump(realpath($firstPath));
     $absolutePath2 = __DIR__ . '/' . pathinfo($secondPath, PATHINFO_DIRNAME) . '/' . pathinfo($secondPath, PATHINFO_BASENAME);
 
     $fileContent1 = file_get_contents($absolutePath1);
