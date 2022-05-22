@@ -6,13 +6,33 @@ use function Functional\sort;
 
 function generateDiff(string $firstPath, string $secondPath, string $style = ''): string
 {
-    $absolutePath1 = __DIR__ . '/' . pathinfo($firstPath, PATHINFO_DIRNAME) . '/' . pathinfo($firstPath, PATHINFO_BASENAME);
-    print_r($absolutePath1);
-    print_r("\n");
-    print_r(__DIR__);
-    print_r("\n");
-    var_dump(realpath($firstPath));
-    $absolutePath2 = __DIR__ . '/' . pathinfo($secondPath, PATHINFO_DIRNAME) . '/' . pathinfo($secondPath, PATHINFO_BASENAME);
+    chdir('tests/fixtures');
+
+    $absolutePath1 = realpath($firstPath);
+    $absolutePath2 = realpath($secondPath);
+
+    $fileContent1 = file_get_contents($absolutePath1);
+    $fileContent2 = file_get_contents($absolutePath2);
+
+    $jsonToArr1 = json_decode($fileContent1, true);
+    $jsonToArr2 = json_decode($fileContent2, true);
+    /////
+
+//    $absolutePath1 = __DIR__ . '/' . pathinfo($firstPath, PATHINFO_DIRNAME) . '/' . pathinfo($firstPath, PATHINFO_BASENAME);
+//    print_r($absolutePath1);
+//    print_r("\n");
+//    print_r(__DIR__);
+//    print_r("\n");
+//    print_r(realpath(""));
+//    print_r("\n");
+//    print_r(getcwd() . "\n");
+////    chdir(realpath(""));
+//    var_dump(realpath($firstPath));
+//    $myValue = realpath($firstPath);
+//    print_r("\n");
+//    print_r(error_get_last());
+//    $absolutePath2 = __DIR__ . '/' . pathinfo($secondPath, PATHINFO_DIRNAME) . '/' . pathinfo($secondPath, PATHINFO_BASENAME);
+//    $myValue2 = realpath($secondPath);
 
     $fileContent1 = file_get_contents($absolutePath1);
 
