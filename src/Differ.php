@@ -16,31 +16,6 @@ function generateDiff(string $firstPath, string $secondPath, string $style = '')
 
     $jsonToArr1 = json_decode($fileContent1, true);
     $jsonToArr2 = json_decode($fileContent2, true);
-    /////
-
-//    $absolutePath1 = __DIR__ . '/' . pathinfo($firstPath, PATHINFO_DIRNAME) . '/' . pathinfo($firstPath, PATHINFO_BASENAME);
-//    print_r($absolutePath1);
-//    print_r("\n");
-//    print_r(__DIR__);
-//    print_r("\n");
-//    print_r(realpath(""));
-//    print_r("\n");
-//    print_r(getcwd() . "\n");
-////    chdir(realpath(""));
-//    var_dump(realpath($firstPath));
-//    $myValue = realpath($firstPath);
-//    print_r("\n");
-//    print_r(error_get_last());
-//    $absolutePath2 = __DIR__ . '/' . pathinfo($secondPath, PATHINFO_DIRNAME) . '/' . pathinfo($secondPath, PATHINFO_BASENAME);
-//    $myValue2 = realpath($secondPath);
-
-    $fileContent1 = file_get_contents($absolutePath1);
-
-    $fileContent2 = file_get_contents($absolutePath2);
-//    print_r($secondPath);
-
-    $jsonToArr1 = json_decode($fileContent1, true);
-    $jsonToArr2 = json_decode($fileContent2, true);
 
     $merged = array_keys(array_merge($jsonToArr1, $jsonToArr2));
 
