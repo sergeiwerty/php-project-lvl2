@@ -3,17 +3,16 @@
 namespace Differ\Differ;
 
 use function Functional\sort;
+use function Differ\Utils\getFixtureFullPath;
 
 function generateDiff(string $firstPath, string $secondPath, string $style = ''): string
 {
-    chdir('tests/fixtures');
 
-    $absolutePath1 = realpath($firstPath);
-    $absolutePath2 = realpath($secondPath);
+    $pathToFile1 = getFixtureFullPath($firstPath);
+    $pathToFile2 = getFixtureFullPath($secondPath);
 
-    $fileContent1 = file_get_contents($absolutePath1);
-    $fileContent2 = file_get_contents($absolutePath2);
-
+    $fileContent1 = file_get_contents($pathToFile1);
+    $fileContent2 = file_get_contents($pathToFile2);
     $jsonToArr1 = json_decode($fileContent1, true);
     $jsonToArr2 = json_decode($fileContent2, true);
 
@@ -35,9 +34,7 @@ function generateDiff(string $firstPath, string $secondPath, string $style = '')
             $resultString .= "\t" . '  ' . $key . ': ' . (var_export($jsonToArr1[$key], true)) . "\n";
         }
     }
-    $resultString .= '}';
+    $resultString .= '}' . "\n";
 
     return $resultString;
 }
-
-//print_r(generateDiff('../tests/fixtures/fixture1.json', '../tests/fixtures/fixture2.json'));

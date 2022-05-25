@@ -1,13 +1,11 @@
 <?php
 
-namespace Gendiff\Tests;
+namespace Differ\Tests;
 
 use PHPUnit\Framework\TestCase;
 
 $autoloadPath1 = __DIR__ . '/../../../autoload.php';
 $autoloadPath2 = __DIR__ . '/../vendor/autoload.php';
-
-use function Differ\Differ\generateDiff;
 
 if (file_exists($autoloadPath1)) {
     require_once $autoloadPath1;
@@ -15,22 +13,31 @@ if (file_exists($autoloadPath1)) {
     require_once $autoloadPath2;
 }
 
+use function Differ\Differ\generateDiff;
+use function Differ\Utils\getFixtureFullPath;
+
+//chdir('../tests/fixtures');
+
 class GendiffTest extends TestCase
 {
-    public function testJSONEquals()
+    protected $myString;
+
+    protected function setUp(): void
     {
-        getcwd();
-        chdir('./fixtures');
-        $dir = getcwd();
-        $dirFile = $dir . '/fixture1.json';
-        $dirContent = file_get_contents($dirFile);
-        $json = json_decode($dirContent, true);
+        $this->myString = "{
+	- follow: false
+	  host: 'hexlet.io'
+	- proxy: '123.234.53.22'
+	- timeout: 50
+	+ timeout: 20
+	+ verbose: true
+}\n";
+    }
+    public function testJSONEquals1()
+    {
+        $pathToFixture3 = getFixtureFullPath('fixture3.json');
 
-//        $correctAnswer = [];
-//        foreach ($json as $key => $value) {
-//            $correctAnswer[$key] = $value;
-//        }
+        $this->assertEquals($this->myString, generateDiff('fixture1.json', 'fixture2.json'));
 
-        $this->assertEquals($json, []);
     }
 }

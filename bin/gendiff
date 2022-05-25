@@ -3,9 +3,6 @@
 <?php
 $autoloadPath1 = __DIR__ . '/../../../autoload.php';
 $autoloadPath2 = __DIR__ . '/../vendor/autoload.php';
-//namespace Gendiff;
-
-//use Docopt\Handler;
 
 if (file_exists($autoloadPath1)) {
     require_once $autoloadPath1;
@@ -29,45 +26,14 @@ Options:
   --format <fmt>                Report format [default: stylish]
 DOC;
 
-//$handler = new Handler(array(
-//    'help'=>true,
-//    'optionsFirst'=>false,
-//));
-//$handler->handle($doc, $argv);
-
-
 $params = array(
     'argv' => array_slice($_SERVER['argv'], 1),
     'help' => true,
     'version' => null,
     'optionsFirst' => false,
 );
-//$args = Docopt::handle($doc, $params);
+
 $args = Docopt::handle($doc, ['version' => '1.0']);
 $my = $_SERVER;
-//function genDiff()
-//{
-//    getcwd();
-//    chdir('./fixtures');
-//    $dir = getcwd();
-//    $dirFile = $dir . '/fixture1.json';
-//    $dirContent = file_get_contents($dirFile);
-//    $json = json_decode($dirContent, true);
-//}
-
-//print_r($args);
-//$fileContent1 = file_get_contents('/home/user/development/php-project-lvl2/php-project-lvl2/tests/fixtures/fixture1.json');
-//$fileContent2 = file_get_contents('/home/user/development/php-project-lvl2/php-project-lvl2/tests/fixtures/fixture2.json');
 
 print_r(generateDiff($args['<firstFile>'], $args['<secondFile>'], $args['--format']));
-
-//foreach ($args as $k=>$v)
-//    echo $k.': '.json_encode($v).PHP_EOL;
-
-//$my = generateDiff($args['<firstFile>'], $args['<secondFile>']);
-//print_r(generateDiff('/home/user/development/php-project-lvl2/php-project-lvl2/tests/fixtures/fixture1.json', 'tests/fixtures/fixture2.json'));
-//print_r('my str');
-
-
-//$fileContent1 = file_get_contents('/home/user/development/php-project-lvl2/php-project-lvl2/tests/fixtures/fixture1.json');
-//generateDiff();
