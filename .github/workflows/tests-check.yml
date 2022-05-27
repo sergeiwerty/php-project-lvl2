@@ -10,30 +10,17 @@ on:
 jobs:
   phpunit:
     runs-on: ubuntu-latest
-    env:
-      CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
     steps:
       - uses: actions/checkout@v2
-        # Step's name
-      - name: Setup PHP
-        # Action gives to setup the PHP environment to test application
-        # https://github.com/shivammathur/setup-php
-        uses: shivammathur/setup-php@v2
-        with:
-          # Specify the PHP version
-          php-version: '8.1'
-          coverage: xdebug
-      - name: Prepare The Environment
-        run: cp .env.example .env
-      - name: Install Composer Dependencies
-        run: composer install --no-progress --prefer-dist --optimize-autoloader
-      - name: Generate Application Key
-        run: php artisan key:generate
-      - name: Code Climate Setup
-        run: |
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter && chmod +x ./cc-test-reporter
-          ./cc-test-reporter before-build
-      - name: Run Tests
-        run: |
-          php vendor/bin/phpunit --coverage-clover clover.xml --configuration phpunit.xml tests/Unit
-          ./cc-test-reporter after-build -t clover --exit-code $?
+
+      - name: Run test & publish code coverage
+        uses: paambaati/codeclimate-action@v3.0.0
+
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        XDEBUG_MODE: coverage
+
+      with:
+        coverageCommand: make test
+        coverageLocations: ${{github.workplace}}/build/logs/clover.xml:clover
+        debug: true
