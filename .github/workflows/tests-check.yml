@@ -8,8 +8,10 @@ on:
       - '**'
 
 jobs:
-  test:
+  phpunit:
     runs-on: ubuntu-latest
+    env:
+      CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
     steps:
       - uses: actions/checkout@v2
         # Step's name
@@ -20,27 +22,18 @@ jobs:
         with:
           # Specify the PHP version
           php-version: '8.1'
-      - name: Install
-        # Install project
-        run: make install
-      - name: Run tests
-        # Run Linter
-        run: make test
-  coverage:
-    needs: [ test ]
-    name: Publish code coverage
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-node@master
-        with:
-          node-version: '12'
-      - run: npm install -g yarn
-      - run: yarn install
-      - run: yarn build
-      - uses: paambaati/codeclimate-action@v3.0.0
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        with:
-          coverageCommand: yarn run coverage
-          debug: true
+          coverage: xdebug
+      - name: Prepare The Environment
+        run: cp .env.example .env
+      - name: Install Composer Dependencies
+        run: composer install --no-progress --prefer-dist --optimize-autoloader
+      - name: Generate Application Key
+        run: php artisan key:generate
+      - name: Code Climate Setup
+        run: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter && chmod +x ./cc-test-reporter
+          ./cc-test-reporter before-build
+      - name: Run Tests
+        run: |
+          php vendor/bin/phpunit --coverage-clover clover.xml --configuration phpunit.xml tests/Unit
+          ./cc-test-reporter after-build -t clover --exit-code $?
