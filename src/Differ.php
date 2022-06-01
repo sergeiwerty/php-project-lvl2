@@ -7,8 +7,10 @@ use function Differ\Utils\getFixtureFullPath;
 
 function genDiff(string $firstPath, string $secondPath, string $style = ''): string
 {
+    var_dump(getFixtureFullPath($firstPath));
+	var_dump(getFixtureFullPath($secondPath));
 
-    $pathToFile1 = getFixtureFullPath($firstPath);
+	$pathToFile1 = getFixtureFullPath($firstPath);
     $pathToFile2 = getFixtureFullPath($secondPath);
 
     $fileContent1 = file_get_contents($pathToFile1);
