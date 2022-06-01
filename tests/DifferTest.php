@@ -13,12 +13,12 @@ if (file_exists($autoloadPath1)) {
     require_once $autoloadPath2;
 }
 
-use function Differ\Differ\generateDiff;
+use function Differ\Differ\genDiff;
 use function Differ\Utils\getFixtureFullPath;
 
 //chdir('../tests/fixtures');
 
-class GendiffTest extends TestCase
+class DifferTest extends TestCase
 {
     protected $myString;
 
@@ -37,7 +37,7 @@ class GendiffTest extends TestCase
     {
         $pathToFixture3 = getFixtureFullPath('fixture3.json');
 
-        $this->assertEquals($this->myString, generateDiff('fixture1.json', 'fixture2.json'));
+        $this->assertEquals($this->myString, genDiff('fixture1.json', 'fixture2.json'));
 
     }
 }

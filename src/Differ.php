@@ -5,7 +5,7 @@ namespace Differ\Differ;
 use function Functional\sort;
 use function Differ\Utils\getFixtureFullPath;
 
-function generateDiff(string $firstPath, string $secondPath, string $style = ''): string
+function genDiff(string $firstPath, string $secondPath, string $style = ''): string
 {
 
     $pathToFile1 = getFixtureFullPath($firstPath);
