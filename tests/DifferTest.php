@@ -4,14 +4,14 @@ namespace Differ\Tests;
 
 use PHPUnit\Framework\TestCase;
 
-$autoloadPath1 = __DIR__ . '/../../../autoload.php';
-$autoloadPath2 = __DIR__ . '/../vendor/autoload.php';
-
-if (file_exists($autoloadPath1)) {
-    require_once $autoloadPath1;
-} else {
-    require_once $autoloadPath2;
-}
+//$autoloadPath1 = __DIR__ . '/../../../autoload.php';
+//$autoloadPath2 = __DIR__ . '/../vendor/autoload.php';
+//
+//if (file_exists($autoloadPath1)) {
+//    require_once $autoloadPath1;
+//} else {
+//    require_once $autoloadPath2;
+//}
 
 use function Differ\Differ\genDiff;
 use function Differ\Utils\getFixtureFullPath;
