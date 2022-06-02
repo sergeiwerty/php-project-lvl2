@@ -37,7 +37,7 @@ class DifferTest extends TestCase
     {
         $pathToFixture3 = getFixtureFullPath('fixture3.json');
 
-        $this->assertEquals($this->myString, genDiff('fixture1.json', 'fixture2.json'));
+        $this->assertEquals($this->myString, genDiff('file1.json', 'file2.json'));
 
     }
 }
