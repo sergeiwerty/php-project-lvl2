@@ -7,6 +7,7 @@ use function Differ\Utils\getFixtureFullPath;
 
 function genDiff(string $firstPath, string $secondPath, string $style = ''): string
 {
+	var_dump(__DIR__);
 	var_dump($firstPath);
 	var_dump($secondPath);
 //    var_dump(getFixtureFullPath($firstPath));
