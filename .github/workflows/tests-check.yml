@@ -30,7 +30,7 @@ jobs:
 
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-          CC_TEST_REPORTER_COVERAGE_ENDPOINT: http://sergeiwerty/api/v1/test_reports
+#          CC_TEST_REPORTER_COVERAGE_ENDPOINT: http://sergeiwerty/api/v1/test_reports
           XDEBUG_MODE: coverage
 
         with:
