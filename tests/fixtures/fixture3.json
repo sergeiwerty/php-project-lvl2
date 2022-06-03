@@ -1,7 +1,0 @@
-{
-  "timeout": 20,
-  "verbose": true,
-  "host": "hexlet.io",
-  "my_bag": 123,
-  "some": "word"
-}

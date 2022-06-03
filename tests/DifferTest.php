@@ -24,7 +24,7 @@ class DifferTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->myString = "{
+        $this->expected = "{
 	- follow: false
 	  host: 'hexlet.io'
 	- proxy: '123.234.53.22'
@@ -33,11 +33,23 @@ class DifferTest extends TestCase
 	+ verbose: true
 }\n";
     }
-    public function testJSONEquals1()
+
+    /**
+     * @dataProvider additionProvider
+     */
+    public function testFilesEquals()
     {
-        $pathToFixture3 = getFixtureFullPath('fixture3.json');
+        $pathToFixture3 = getFixtureFullPath('filepath1.yml');
 
-        $this->assertEquals($this->myString, genDiff('file1.json', 'file2.json'));
+        $this->assertEquals($this->expected, genDiff('file1.json', 'file2.json'));
 
+    }
+
+    public function equalityProvider()
+    {
+        return [
+            [],
+            []
+        ];
     }
 }
