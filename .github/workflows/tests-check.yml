@@ -34,6 +34,6 @@ jobs:
           XDEBUG_MODE: coverage
 
         with:
-          coverageCommand: make test
+          coverageCommand: make test-coverage
           coverageLocations: ${{github.workplace}}/build/logs/clover.xml:clover
           debug: true
