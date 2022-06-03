@@ -1,1 +1,1 @@
-{"version":1,"defects":[],"times":{"Differ\\Tests\\GendiffTest::testJSONEquals1":0.002,"Differ\\Tests\\DifferTest::testJSONEquals1":0.003}}
+{"version":1,"defects":[],"times":{"Differ\\Tests\\GendiffTest::testJSONEquals1":0.002,"Differ\\Tests\\DifferTest::testJSONEquals1":0.003,"Differ\\Tests\\DifferTest::testFilesEquals with data set #0":0.005}}

@@ -35,21 +35,21 @@ class DifferTest extends TestCase
     }
 
     /**
-     * @dataProvider additionProvider
+     * @dataProvider equalityProvider
      */
-    public function testFilesEquals()
+    public function testFilesEquals($fileName1, $fileName2)
     {
-        $pathToFixture3 = getFixtureFullPath('filepath1.yml');
+//        $pathToFixture3 = getFixtureFullPath('filepath1.yml');
 
-        $this->assertEquals($this->expected, genDiff('file1.json', 'file2.json'));
+        $this->assertEquals($this->expected, genDiff($fileName1, $fileName2));
 
     }
 
     public function equalityProvider()
     {
         return [
-            [],
-            []
+            ['file1.json', 'file2.json']
+//            ['filepath1.yml', 'filepath2.yml']
         ];
     }
 }
