@@ -24,14 +24,8 @@ class DifferTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->expected = "{
-	- follow: false
-	  host: 'hexlet.io'
-	- proxy: '123.234.53.22'
-	- timeout: 50
-	+ timeout: 20
-	+ verbose: true
-}\n";
+        $plainData = file_get_contents(__DIR__ . "/fixtures/" . "result.txt");
+        $this->expected = trim($plainData);
     }
 
     /**
@@ -39,7 +33,7 @@ class DifferTest extends TestCase
      */
     public function testFilesEquals($fileName1, $fileName2)
     {
-//        $pathToFixture3 = getFixtureFullPath('filepath1.yml');
+//        $pathToFixture3 = getFixtureFullPath('plainYml1.yml');
 
         $this->assertEquals($this->expected, genDiff($fileName1, $fileName2));
 
@@ -48,8 +42,8 @@ class DifferTest extends TestCase
     public function equalityProvider()
     {
         return [
-            ['file1.json', 'file2.json']
-//            ['filepath1.yml', 'filepath2.yml']
+            ['plainJson1.json', 'plainJson2.json'],
+            ['plainYml1.yml', 'plainYml2.yml']
         ];
     }
 }

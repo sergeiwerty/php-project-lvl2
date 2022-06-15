@@ -4,42 +4,44 @@ namespace Differ\Differ;
 
 use function Functional\sort;
 use function Differ\Utils\getFixtureFullPath;
+use function Differ\Parsers\Parser\parse;
 
 function genDiff(string $firstPath, string $secondPath, string $style = ''): string
 {
     var_dump(__DIR__);
     var_dump($firstPath);
     var_dump($secondPath);
-//    var_dump(getFixtureFullPath($firstPath));
-//    var_dump(getFixtureFullPath($secondPath));
 
-    $pathToFile1 = getFixtureFullPath($firstPath);
-    $pathToFile2 = getFixtureFullPath($secondPath);
+//    $pathToFile1 = getFixtureFullPath($firstPath);
+//    $pathToFile2 = getFixtureFullPath($secondPath);
+//
+//    $fileContent1 = file_get_contents($pathToFile1);
+//    $fileContent2 = file_get_contents($pathToFile2);
+//    $jsonToArr1 = json_decode($fileContent1, true);
+//    $jsonToArr2 = json_decode($fileContent2, true);
 
-    $fileContent1 = file_get_contents($pathToFile1);
-    $fileContent2 = file_get_contents($pathToFile2);
-    $jsonToArr1 = json_decode($fileContent1, true);
-    $jsonToArr2 = json_decode($fileContent2, true);
+    $parsedFile1 = parse($firstPath);
+    $parsedFile2 = parse($secondPath);
 
-    $merged = array_keys(array_merge($jsonToArr1, $jsonToArr2));
+    $merged = array_keys(array_merge($parsedFile1, $parsedFile2));
 
     $sortedKeys = sort($merged, fn ($left, $right) => strcmp($left, $right));
 
     $resultString = "{\n";
 
     foreach ($sortedKeys as $key) {
-        if (!array_key_exists($key, $jsonToArr1)) {
-            $resultString .= "\t" . '+ ' . $key . ': ' . (var_export($jsonToArr2[$key], true)) . "\n";
-        } elseif (!array_key_exists($key, $jsonToArr2)) {
-            $resultString .= "\t" . '- ' . $key . ': ' . (var_export($jsonToArr1[$key], true)) . "\n";
-        } elseif ($jsonToArr1[$key] !== $jsonToArr2[$key]) {
-            $resultString .= "\t" . '- ' . $key . ': ' . (var_export($jsonToArr1[$key], true)) . "\n";
-            $resultString .= "\t" . '+ ' . $key . ': ' . (var_export($jsonToArr2[$key], true)) . "\n";
+        if (!array_key_exists($key, $parsedFile1)) {
+            $resultString .= "\t" . '+ ' . $key . ': ' . (var_export($parsedFile2[$key], true)) . "\n";
+        } elseif (!array_key_exists($key, $parsedFile2)) {
+            $resultString .= "\t" . '- ' . $key . ': ' . (var_export($parsedFile1[$key], true)) . "\n";
+        } elseif ($parsedFile1[$key] !== $parsedFile2[$key]) {
+            $resultString .= "\t" . '- ' . $key . ': ' . (var_export($parsedFile1[$key], true)) . "\n";
+            $resultString .= "\t" . '+ ' . $key . ': ' . (var_export($parsedFile2[$key], true)) . "\n";
         } else {
-            $resultString .= "\t" . '  ' . $key . ': ' . (var_export($jsonToArr1[$key], true)) . "\n";
+            $resultString .= "\t" . '  ' . $key . ': ' . (var_export($parsedFile1[$key], true)) . "\n";
         }
     }
-    $resultString .= '}' . "\n";
+    $resultString .= '}';
 
     return $resultString;
 }
