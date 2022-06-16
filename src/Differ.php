@@ -8,9 +8,9 @@ use function Differ\Parsers\Parser\parse;
 
 function genDiff(string $firstPath, string $secondPath, string $style = ''): string
 {
-    var_dump(__DIR__);
-    var_dump($firstPath);
-    var_dump($secondPath);
+//    var_dump(__DIR__);
+//    var_dump($firstPath);
+//    var_dump($secondPath);
 
 //    $pathToFile1 = getFixtureFullPath($firstPath);
 //    $pathToFile2 = getFixtureFullPath($secondPath);
