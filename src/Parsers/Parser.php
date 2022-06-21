@@ -6,7 +6,7 @@ use Symfony\Component\Yaml\Yaml;
 
 function getFileContent($fileName): array
 {
-    var_dump($fileName);
+//    var_dump($fileName);
     $parts = [__DIR__, '../../tests/fixtures', $fileName];
     $absolutePath = realpath(implode('/', $parts));
 

@@ -23,6 +23,9 @@ function genDiff(string $firstPath, string $secondPath, string $style = ''): str
     $parsedFile1 = parse($firstPath);
     $parsedFile2 = parse($secondPath);
 
+    var_dump($parsedFile1);
+    var_dump(trim(var_export($parsedFile1, true), "'"));
+
     $merged = array_keys(array_merge($parsedFile1, $parsedFile2));
 
     $sortedKeys = sort($merged, fn ($left, $right) => strcmp($left, $right));
