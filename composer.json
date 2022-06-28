@@ -11,6 +11,9 @@
             "src/Utils.php",
             "src/Parsers/Parser.php",
             "src/Differ/Builder.php",
+            "src/Formatters.php",
+            "src/Formatters/stylishFormatter.php",
+            "src/Formatters/plainFormatter.php",
             "src/Formatters/JSONFormatter.php"
         ]
     },

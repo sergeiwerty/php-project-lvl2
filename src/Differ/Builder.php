@@ -4,8 +4,8 @@ namespace Differ\Differ\Builder;
 
 use function Functional\sort;
 use function Differ\Parsers\Parser\parse;
-//use function Differ\Formatters\JSONFormatter\buildStyledFormat;
-use function Differ\Formatters\JSONFormatter\buildStyledFormat;
+use function Differ\Formatters\plainFormatter\makeFormattedDiff;
+//use function Differ\Formatters\stylishFormatter\buildStyledFormat;
 
 
 function buildDiff($firstPath, $secondPath,)
@@ -43,16 +43,14 @@ function buildDiff($firstPath, $secondPath,)
 //                    print_r('');
 //                    $state = $nodeType === 'leafNode' ? [$currentNode1[$key], $currentNode2[$key]] : $iterAst($currentNode1[$key], $currentNode2[$key]);
                     return [...$result,
-                        $key =>
-                            ['key' => $key,
-                                'status' => 'changed',
-                                'node' =>
-                                [
-                                    'value' => $currentNode2[$key],
-                                    'valueBeforeChange' => $currentNode1[$key],
-                                    'valueAfterChange' => $currentNode2[$key]
-                                ]
+                        $key => ['key' => $key,
+                            'status' => 'changed',
+                            'node' => [
+                                'value' => $currentNode2[$key],
+                                'valueBeforeChange' => $currentNode1[$key],
+                                'valueAfterChange' => $currentNode2[$key]
                             ]
+                        ]
 
                     ];
                 }
@@ -68,7 +66,7 @@ function buildDiff($firstPath, $secondPath,)
     };
 
 //    var_dump(json_encode($my($parsedNodes1, $parsedNodes2)));
-    var_dump(buildStyledFormat($iterAst($parsedNodes1, $parsedNodes2)));
-    return buildStyledFormat($iterAst($parsedNodes1, $parsedNodes2));
+//    var_dump(buildStyledFormat($iterAst($parsedNodes1, $parsedNodes2)));
+    return makeFormattedDiff($iterAst($parsedNodes1, $parsedNodes2));
 
 }
