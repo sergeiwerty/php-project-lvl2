@@ -9,7 +9,13 @@ function getFileContent($fileName): array
 //    $parts = [__DIR__, '../../tests/fixtures', $fileName];
 //    $absolutePath = realpath(implode('/', $parts));
 
-        $parts = [__DIR__, $fileName];
+
+    if (strpos($fileName, '/') === 0) {
+        $parts = [$fileName];
+    } else {
+        $parts = [__DIR__, '/../', $fileName];
+    }
+    print_r($parts);
     $absolutePath = implode('/', $parts);
 
 
