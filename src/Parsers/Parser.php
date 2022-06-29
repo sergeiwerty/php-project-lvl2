@@ -15,8 +15,7 @@ function getFileContent($fileName): array
     } else {
         $parts = [__DIR__, '/../', $fileName];
     }
-    print_r($parts);
-    $absolutePath = implode('/', $parts);
+    $absolutePath = implode('', $parts);
 
 
 //    $pathToFile = getFullPath($fileName);
