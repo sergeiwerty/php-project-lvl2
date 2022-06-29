@@ -8,7 +8,6 @@ use function Differ\Differ\genDiff;
 
 class DifferTest extends TestCase
 {
-
     /**
      * @dataProvider equalityNestedProvider
      */
@@ -34,5 +33,4 @@ class DifferTest extends TestCase
             [$expectedJSON, '../tests/fixtures/nestedYaml1.yaml', '../tests/fixtures/nestedYaml2.yaml', 'json'],
         ];
     }
-
 }
