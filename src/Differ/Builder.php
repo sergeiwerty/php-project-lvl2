@@ -3,8 +3,6 @@
 namespace Differ\Differ\Builder;
 
 use function Functional\sort;
-use function Differ\Parsers\Parser\parse;
-use function Differ\Formatters\JSONFormatter\makeFormattedDiff;
 
 function buildDiff(array $firstFileContent, array $secondFileContent,)
 {

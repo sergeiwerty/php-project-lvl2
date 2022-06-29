@@ -2,8 +2,10 @@
 
 namespace Differ\Formatters;
 
+use Exception;
+
 /**
- * @throws \Exception
+ * @throws Exception
  */
 function getFormattedDiff(array $astTreeData, string $format): string
 {
@@ -15,6 +17,6 @@ function getFormattedDiff(array $astTreeData, string $format): string
         case 'json':
             return JSONFormatter\makeFormattedDiff($astTreeData);
         default :
-            throw new \Exception("Unknown format: {$format}!");
+            throw new Exception("Unknown format: {$format}!");
     }
 }
