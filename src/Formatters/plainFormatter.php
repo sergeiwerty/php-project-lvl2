@@ -15,7 +15,6 @@ function makeFormattedDiff($astTreeData): string
             return $value ? 'true' : 'false';
         }
         if (is_array($value)) {
-            print_r($value);
             return "[complex value]";
         }
         if (is_string($value)) {
@@ -27,10 +26,7 @@ function makeFormattedDiff($astTreeData): string
     $statusTree = [
         'added' => function ($path, $node) use ($prepareValue) {
             [key($node) => ['key' => $key, 'node' => ['value' => $value]]] = $node;
-            print_r($value);
-
             $value = $prepareValue($value);
-            print_r($value);
             return "Property '{$path}' was added with value: {$value}";
         },
         'deleted' => fn($path) => "Property '{$path}' was removed",
