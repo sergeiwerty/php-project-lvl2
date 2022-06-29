@@ -4,35 +4,49 @@ namespace Differ\Formatters\plainFormatter;
 
 use function Functional\flatten;
 
-function makeFormattedDiff ($astTreeData): string
+function makeFormattedDiff($astTreeData): string
 {
-    $renderValue = function ($value) {
-        $renderedValue = is_array($value) ? "[complex value]" : $value;
-        return $renderedValue;
+
+    $prepareValue = function ($value) {
+        if (is_null($value)) {
+            return 'null';
+        }
+        if (is_bool($value)) {
+            return $value ? 'true' : 'false';
+        }
+        if (is_array($value)) {
+            print_r($value);
+            return "[complex value]";
+        }
+        if (is_string($value)) {
+            return "'{$value}'";
+        }
+        return "{$value}";
     };
 
     $statusTree = [
-        'added' => function ($path, $node) use ($renderValue) {
+        'added' => function ($path, $node) use ($prepareValue) {
             [key($node) => ['key' => $key, 'node' => ['value' => $value]]] = $node;
             print_r($value);
 
-            $value = $renderValue($value);
-            return "Property {$path} wad added with value: {$value}";
+            $value = $prepareValue($value);
+            print_r($value);
+            return "Property '{$path}' was added with value: {$value}";
         },
-        'deleted' => fn($path) => "Property {$path} was removed",
-//        'nested' => fn($path, $node, $iterRender) => $iterRender($node['children'], $path),
+        'deleted' => fn($path) => "Property '{$path}' was removed",
         'nested' => function ($path, $node, $iterRender) {
             [key($node) => ['key' => $key, 'node' => ['value' => $value, 'children' => $children]]] = $node;
-            print_r($children);
-//            return $iterRender($node['children'], $path);
             return $iterRender($children, $path);
-
         },
-        'changed' => function ($path, $node) use ($renderValue) {
-            [key($node) => ['key' => $key, 'node' => ['value' => $value, 'valueBeforeChange' => $nodeValueBefore, 'valueAfterChange' => $nodeValueAfter]]] = $node;
-            $valueBefore = $renderValue($nodeValueBefore);
-            $valueAfter = $renderValue($nodeValueAfter);
-            return "Property {$path} was changed from {$valueBefore} to {$valueAfter}";
+        'changed' => function ($path, $node) use ($prepareValue) {
+            [key($node) =>
+                ['node' =>
+                    ['valueBeforeChange' => $nodeValueBefore, 'valueAfterChange' => $nodeValueAfter]
+                ]
+            ] = $node;
+            $valueBefore = $prepareValue($nodeValueBefore);
+            $valueAfter = $prepareValue($nodeValueAfter);
+            return "Property '{$path}' was updated. From {$valueBefore} to {$valueAfter}";
         },
         'unchanged' => fn() => [],
     ];
@@ -50,5 +64,3 @@ function makeFormattedDiff ($astTreeData): string
 
     return $renderPlainDiff($astTreeData, false);
 }
-
-

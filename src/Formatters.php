@@ -2,7 +2,7 @@
 
 namespace Differ\Formatters;
 
-function getFormattedDiff ($astTreeData, $format): string
+function getFormattedDiff($astTreeData, $format): string
 {
     switch ($format) {
         case 'stylish':
@@ -13,8 +13,3 @@ function getFormattedDiff ($astTreeData, $format): string
             return JSONFormatter\makeFormattedDiff($astTreeData);
     }
 }
-//$formattersTree =
-//    'stylish' => fn(),
-//    'plain' => '',
-//    'json'=> ''
-//];

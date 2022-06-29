@@ -5,58 +5,34 @@ namespace Differ\Tests;
 use PHPUnit\Framework\TestCase;
 
 use function Differ\Differ\genDiff;
-use function Differ\Utils\getFixtureFullPath;
-use function Differ\Differ\Builder\buildDiff;
-
-//chdir('../tests/fixtures');
 
 class DifferTest extends TestCase
 {
-    protected $myString;
-
-    protected function setUp(): void
-    {
-        $plainData = file_get_contents(__DIR__ . "/fixtures/" . "result.txt");
-        $nestedData = file_get_contents(__DIR__ . "/fixtures/" . "resultNested.txt");
-        $this->expected = trim($plainData);
-        $this->expectedNested = trim($nestedData);
-    }
-
-    /**
-     * @dataProvider equalityPlainProvider
-     */
-    public function testFilesEquals($fileName1, $fileName2)
-    {
-        $this->assertEquals($this->expected, genDiff($fileName1, $fileName2));
-    }
-
-    public function equalityPlainProvider()
-    {
-        return [
-            ['plainJson1.json', 'plainJson2.json'],
-            ['plainYml1.yml', 'plainYml2.yml'],
-        ];
-    }
-
 
     /**
      * @dataProvider equalityNestedProvider
      */
-    public function testNestedEquals($fileName1, $fileName2)
+    public function testNestedEquals($expected, $fileName1, $fileName2, $format = 'stylish')
     {
-        $this->assertEquals($this->expectedNested, genDiff($fileName1, $fileName2));
+        $this->assertEquals($expected, genDiff($fileName1, $fileName2, $format));
     }
 
     public function equalityNestedProvider()
     {
+        $expectedStylish = trim(file_get_contents(__DIR__ . "/fixtures/" . "expectedStylish.txt"));
+        $expectedPlain = trim(file_get_contents(__DIR__ . "/fixtures/" . "expectedPlain.txt"));
+        $expectedJSON = trim(file_get_contents(__DIR__ . "/fixtures/" . "expectedJSON.txt"));
+
         return [
-            ['nestedJson1.json', 'nestedJson2.json'],
-            ['nestedYaml1.yaml', 'nestedYaml2.yaml']
+            [$expectedStylish, 'nestedJson1.json', 'nestedJson2.json'],
+            [$expectedStylish, 'nestedYaml1.yaml', 'nestedYaml2.yaml'],
+            [$expectedStylish, 'nestedJson1.json', 'nestedJson2.json', 'stylish'],
+            [$expectedStylish, 'nestedYaml1.yaml', 'nestedYaml2.yaml', 'stylish'],
+            [$expectedPlain, 'nestedJson1.json', 'nestedJson2.json', 'plain'],
+            [$expectedPlain, 'nestedYaml1.yaml', 'nestedYaml2.yaml', 'plain'],
+            [$expectedJSON, 'nestedJson1.json', 'nestedJson2.json', 'json'],
+            [$expectedJSON, 'nestedYaml1.yaml', 'nestedYaml2.yaml', 'json'],
         ];
     }
 
-    public function testBuilder()
-    {
-        $this->assertEquals($this->expectedNested, buildDiff('nestedJson1.json', 'nestedJson2.json'));
-    }
 }

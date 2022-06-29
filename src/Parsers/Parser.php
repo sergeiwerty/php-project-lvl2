@@ -6,22 +6,33 @@ use Symfony\Component\Yaml\Yaml;
 
 function getFileContent($fileName): array
 {
-//    var_dump($fileName);
     $parts = [__DIR__, '../../tests/fixtures', $fileName];
+//    $parts = [__DIR__, $fileName];
     $absolutePath = realpath(implode('/', $parts));
+//    $absolutePath = implode('/', $parts);
+
 
 //    $pathToFile = getFullPath($fileName);
     $fileContent = file_get_contents($absolutePath);
-    $fileType = pathinfo($absolutePath, PATHINFO_EXTENSION);
+//    $fileContent = file_get_contents($fileName);
+    $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
     return [$fileContent, $fileType];
 }
 
-// Нужно получить type
-// type - это то, что указано в расширении файла
+//function getFileContent(string $fileName): array
+//{
+////    print_r((__DIR__ . $fileName));
+//    if (strpos($fileName, '/') === 0) {
+//        print_r('');
+//    }
+//    print_r('');
+//    $fileContent = file_get_contents(__DIR__ . '/../' . $fileName);
+//    $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+//    return [$fileContent, $fileType];
+//}
 
-//$rawData = getFileContent($fileName);
-
-function parse($fileName) {
+function parse($fileName)
+{
     $rawData = getFileContent($fileName);
     [$content, $type] = $rawData;
 
