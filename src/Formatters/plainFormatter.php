@@ -4,7 +4,7 @@ namespace Differ\Formatters\plainFormatter;
 
 use function Functional\flatten;
 
-function makeFormattedDiff($astTreeData): string
+function makeFormattedDiff(array $astTreeData): string
 {
 
     $prepareValue = function ($value) {

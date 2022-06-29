@@ -2,7 +2,10 @@
 
 namespace Differ\Formatters;
 
-function getFormattedDiff($astTreeData, $format): string
+/**
+ * @throws \Exception
+ */
+function getFormattedDiff(array $astTreeData, string $format): string
 {
     switch ($format) {
         case 'stylish':
@@ -11,5 +14,7 @@ function getFormattedDiff($astTreeData, $format): string
             return plainFormatter\makeFormattedDiff($astTreeData);
         case 'json':
             return JSONFormatter\makeFormattedDiff($astTreeData);
+        default :
+            throw new \Exception("Unknown format: {$format}!");
     }
 }

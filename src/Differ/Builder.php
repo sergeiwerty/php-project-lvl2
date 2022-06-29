@@ -6,15 +6,14 @@ use function Functional\sort;
 use function Differ\Parsers\Parser\parse;
 use function Differ\Formatters\JSONFormatter\makeFormattedDiff;
 
-function buildDiff($firstFileContent, $secondFileContent,)
+function buildDiff(array $firstFileContent, array $secondFileContent,)
 {
-
     $iterAst = function ($currentNode1, $currentNode2) use (&$iterAst) {
         $merged = array_keys(array_merge($currentNode1, $currentNode2));
         $sortedKeys = sort($merged, fn($left, $right) => strcmp($left, $right));
 
         return array_map(
-            function ($key) use (&$iterAst, $currentNode1, $currentNode2, $sortedKeys) {
+            function ($key) use (&$iterAst, $currentNode1, $currentNode2) {
                 $result = [];
                 if (!array_key_exists($key, $currentNode1)) {
                     return [...$result, $key =>

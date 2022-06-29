@@ -8,7 +8,7 @@ const INDENT_SYMBOL = ' ';
 const INITIAL_INDENT_SIZE = 2;
 const EXTRA_INDENT_SIZE = 4;
 
-function makeFormattedDiff($astTreeData): string
+function makeFormattedDiff(array $astTreeData): string
 {
     $addIndent = function ($depth, $initial) {
         return str_repeat(INDENT_SYMBOL, $initial + $depth * EXTRA_INDENT_SIZE);
