@@ -15,14 +15,15 @@ function makeFormattedDiff(array $astTreeData): string
     };
 
     $renderInnerValues = function ($value, $depth) use (&$renderInnerValues, $addIndent) {
+        $valueCopy = $value;
         return array_reduce(
-            array_keys($value),
-            function ($acc, $key) use ($renderInnerValues, $addIndent, $value, $depth) {
+            array_keys($valueCopy),
+            function ($acc, $key) use ($renderInnerValues, $addIndent, $valueCopy, $depth) {
                 $indent = $addIndent($depth, INITIAL_INDENT_SIZE);
                 $indentKey = "{$indent}  {$key}";
-                return is_array($value[$key])
-                    ? [$acc, "{$indentKey}: {", $renderInnerValues($value[$key], $depth + 1), "  {$indent}}"]
-                    : [$acc, "{$indentKey}: {$value[$key]}"];
+                return is_array($valueCopy[$key])
+                    ? [$acc, "{$indentKey}: {", $renderInnerValues($valueCopy[$key], $depth + 1), "  {$indent}}"]
+                    : [$acc, "{$indentKey}: {$valueCopy[$key]}"];
             },
             []
         );

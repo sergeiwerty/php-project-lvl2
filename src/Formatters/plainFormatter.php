@@ -48,7 +48,8 @@ function makeFormattedDiff(array $astTreeData): string
     ];
 
     $renderPlainDiff = function ($diff, $pathComposition) use (&$renderPlainDiff, $statusTree) {
-        $lines = array_reduce($diff, function ($acc, $node) use ($renderPlainDiff, $pathComposition, $statusTree) {
+        $diffCopy = $diff;
+        $lines = array_reduce($diffCopy, function ($acc, $node) use ($renderPlainDiff, $pathComposition, $statusTree) {
             [key($node) => ['status' => $status, 'key' => $key, 'node' => ['value' => $value]]] = $node;
             $newPath = $pathComposition ? "{$pathComposition}.{$key}" : "{$key}";
             $diffTypeHandler = $statusTree[$status];

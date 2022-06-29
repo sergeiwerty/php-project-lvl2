@@ -1,1 +1,1 @@
-{"version":1,"defects":[],"times":{"Differ\\Tests\\GendiffTest::testJSONEquals1":0.002,"Differ\\Tests\\DifferTest::testJSONEquals1":0.003,"Differ\\Tests\\DifferTest::testFilesEquals with data set #0":0.005}}
+{"version":1,"defects":{"Differ\\Tests\\DifferTest::testNestedEquals with data set #0":3},"times":{"Differ\\Tests\\GendiffTest::testJSONEquals1":0.002,"Differ\\Tests\\DifferTest::testJSONEquals1":0.003,"Differ\\Tests\\DifferTest::testFilesEquals with data set #0":0.005,"Differ\\Tests\\DifferTest::testNestedEquals with data set #0":0.011}}
