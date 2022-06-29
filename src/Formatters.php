@@ -16,7 +16,7 @@ function getFormattedDiff(array $astTreeData, string $format): string
             return plainFormatter\makeFormattedDiff($astTreeData);
         case 'json':
             return JSONFormatter\makeFormattedDiff($astTreeData);
-        default :
+        default:
             throw new Exception("Unknown format: {$format}!");
     }
 }
