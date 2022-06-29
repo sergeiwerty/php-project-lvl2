@@ -34,7 +34,7 @@ function makeFormattedDiff($astTreeData): string
             return ["{$key}: {", $renderInnerValues($value, $depth + 1), "  {$indent}}"];
         }
         if ('' === $value) {
-            return "{$key}:";
+            return "{$key}: ";
         }
         if (is_null($value)) {
             return "{$key}: null";
