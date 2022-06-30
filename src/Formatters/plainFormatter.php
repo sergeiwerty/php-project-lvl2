@@ -3,6 +3,8 @@
 namespace Differ\Formatters\plainFormatter;
 
 use function Functional\flatten;
+use function Functional\reduce_left;
+use function Functional\filter;
 
 function makeFormattedDiff(array $astTreeData): string
 {
@@ -47,14 +49,30 @@ function makeFormattedDiff(array $astTreeData): string
         'unchanged' => fn() => [],
     ];
 
+//    $renderPlainDiff = function ($diff, $pathComposition) use (&$renderPlainDiff, $statusTree) {
+//        $diffCopy = $diff;
+//        $lines = array_reduce($diffCopy, function ($acc, $node) use ($renderPlainDiff, $pathComposition, $statusTree) {
+//            [key($node) => ['status' => $status, 'key' => $key, 'node' => ['value' => $value]]] = $node;
+//            $newPath = $pathComposition ? "{$pathComposition}.{$key}" : "{$key}";
+//            $diffTypeHandler = $statusTree[$status];
+//            print_r($acc);
+//            $my = $diffTypeHandler($newPath, $node, $renderPlainDiff);
+//            print_r($my);
+//            return flatten([...$acc, $diffTypeHandler($newPath, $node, $renderPlainDiff)]);
+//        }, []);
+//
+//        return implode("\n", $lines);
+//    };
+
     $renderPlainDiff = function ($diff, $pathComposition) use (&$renderPlainDiff, $statusTree) {
-        $diffCopy = $diff;
-        $lines = array_reduce($diffCopy, function ($acc, $node) use ($renderPlainDiff, $pathComposition, $statusTree) {
+        $lines = reduce_left($diff, function ($node, $index, $array, $acc = []) use ($renderPlainDiff, $pathComposition, $statusTree) {
             [key($node) => ['status' => $status, 'key' => $key, 'node' => ['value' => $value]]] = $node;
             $newPath = $pathComposition ? "{$pathComposition}.{$key}" : "{$key}";
             $diffTypeHandler = $statusTree[$status];
-            return flatten([...$acc, $diffTypeHandler($newPath, $node, $renderPlainDiff)]);
-        }, []);
+            $my = $diffTypeHandler($newPath, $node, $renderPlainDiff);
+            $val = $acc ?? [];
+            return flatten([...$val, $my]);
+        });
 
         return implode("\n", $lines);
     };
