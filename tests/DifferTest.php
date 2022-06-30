@@ -23,14 +23,14 @@ class DifferTest extends TestCase
         $expectedJSON = trim(file_get_contents(__DIR__ . "/fixtures/" . "expectedJSON.txt"));
 
         return [
-//            [$expectedStylish, '../tests/fixtures/nestedJson1.json', '../tests/fixtures/nestedJson2.json'],
-//            [$expectedStylish, '../tests/fixtures/nestedYaml1.yaml', '../tests/fixtures/nestedYaml2.yaml'],
-//            [$expectedStylish, '../tests/fixtures/nestedJson1.json', '../tests/fixtures/nestedJson2.json', 'stylish'],
-//            [$expectedStylish, '../tests/fixtures/nestedYaml1.yaml', '../tests/fixtures/nestedYaml2.yaml', 'stylish'],
+            [$expectedStylish, '../tests/fixtures/nestedJson1.json', '../tests/fixtures/nestedJson2.json'],
+            [$expectedStylish, '../tests/fixtures/nestedYaml1.yaml', '../tests/fixtures/nestedYaml2.yaml'],
+            [$expectedStylish, '../tests/fixtures/nestedJson1.json', '../tests/fixtures/nestedJson2.json', 'stylish'],
+            [$expectedStylish, '../tests/fixtures/nestedYaml1.yaml', '../tests/fixtures/nestedYaml2.yaml', 'stylish'],
             [$expectedPlain, '../tests/fixtures/nestedJson1.json', '../tests/fixtures/nestedJson2.json', 'plain'],
             [$expectedPlain, '../tests/fixtures/nestedYaml1.yaml', '../tests/fixtures/nestedYaml2.yaml', 'plain'],
-//            [$expectedJSON, '../tests/fixtures/nestedJson1.json', '../tests/fixtures/nestedJson2.json', 'json'],
-//            [$expectedJSON, '../tests/fixtures/nestedYaml1.yaml', '../tests/fixtures/nestedYaml2.yaml', 'json'],
+            [$expectedJSON, '../tests/fixtures/nestedJson1.json', '../tests/fixtures/nestedJson2.json', 'json'],
+            [$expectedJSON, '../tests/fixtures/nestedYaml1.yaml', '../tests/fixtures/nestedYaml2.yaml', 'json'],
         ];
     }
 }
