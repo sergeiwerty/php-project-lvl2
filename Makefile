@@ -8,7 +8,10 @@ gendiff:
 	./bin/gendiff
 
 lint:
-	composer exec phpcs -- --standard=PSR12 src bin
+	composer exec --verbose phpstan -- --level=8 analyse src tests
+
+lint-fix:
+	composer exec --verbose phpcbf -- --standard=PSR12 src tests
 
 test:
 	composer exec --verbose phpunit tests
