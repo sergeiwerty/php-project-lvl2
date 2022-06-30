@@ -20,7 +20,7 @@ function prepareValue(mixed $value): string
         return "'{$value}'";
     }
     return "{$value}";
-};
+}
 
 function makeFormattedDiff(array $astTreeData): string
 {
@@ -62,4 +62,3 @@ function makeFormattedDiff(array $astTreeData): string
 
     return $renderPlainDiff($astTreeData, false);
 }
-
