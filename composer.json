@@ -41,5 +41,10 @@
         "squizlabs/php_codesniffer": "3.7.1",
         "phpstan/phpstan": "^1.1",
         "hexlet/phpstan-fp": "^1.1"
+    },
+    "config": {
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
     }
 }
