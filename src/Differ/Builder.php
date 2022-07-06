@@ -6,6 +6,11 @@ use function Functional\sort;
 use function Differ\Parsers\Parser\parse;
 use function Differ\Formatters\JSONFormatter\makeFormattedDiff;
 
+/**
+ * @param array<int, mixed> $firstFileContent
+ * @param array<int, mixed> $secondFileContent
+ * @return array<int, mixed>
+ */
 function buildDiff(array $firstFileContent, array $secondFileContent,): array
 {
     $iterAst = function ($currentNode1, $currentNode2) use (&$iterAst) {

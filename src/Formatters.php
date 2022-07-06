@@ -5,6 +5,9 @@ namespace Differ\Formatters;
 use Exception;
 
 /**
+ * @param array<int, mixed> $astTreeData
+ * @param string $format
+ * @return string
  * @throws Exception
  */
 function getFormattedDiff(array $astTreeData, string $format): string

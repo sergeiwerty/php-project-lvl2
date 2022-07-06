@@ -4,6 +4,10 @@ namespace Differ\Parsers\Parser;
 
 use Symfony\Component\Yaml\Yaml;
 
+/**
+ * @param string $fileName
+ * @return array<int, mixed>
+ */
 function getFileContent(string $fileName): array
 {
 //    $parts = [__DIR__, '../../tests/fixtures', $fileName];
