@@ -31,8 +31,8 @@ function makeFormattedDiff(array $astTreeData): string
     $statusTree = [
         'added' => function (string $path, array $node) {
             [key($node) => ['key' => $key, 'node' => ['value' => $value]]] = $node;
-            $value = prepareValue($value);
-            return "Property '{$path}' was added with value: {$value}";
+            $preparedValue = prepareValue($value);
+            return "Property '{$path}' was added with value: {$preparedValue}";
         },
         'deleted' => fn($path) => "Property '{$path}' was removed",
         'nested' => function (string $path, array $node, callable $iterRender) {
@@ -77,7 +77,7 @@ function makeFormattedDiff(array $astTreeData): string
                 $statusTree
             ) {
                 [key($node) => ['status' => $status, 'key' => $key]] = $node;
-                $newPath = $pathComposition ? "{$pathComposition}.{$key}" : "{$key}";
+                $newPath = is_string($pathComposition) ? "{$pathComposition}.{$key}" : "{$key}";
                 $diffTypeHandler = $statusTree[$status];
                 return flatten([$acc, $diffTypeHandler($newPath, $node, $renderPlainDiff)]);
             },

@@ -6,7 +6,7 @@ use Symfony\Component\Yaml\Yaml;
 
 /**
  * @param string $fileName
- * @return array
+ * @return array<int, string|false>
  */
 function getFileContent(string $fileName): array
 {
