@@ -26,7 +26,10 @@ function getFileContent(string $fileName): array
     return [$fileContent, $fileType];
 }
 
-function parse(string $fileName): string
+/**
+ * @return array<int, mixed>
+ */
+function parse(string $fileName): array
 {
     $rawData = getFileContent($fileName);
     [$content, $type] = $rawData;
@@ -39,6 +42,7 @@ function parse(string $fileName): string
         'json' =>
             fn($rawData) => json_decode($rawData, true)
     ];
+    print_r($mapping[$type]($content));
 
     return $mapping[$type]($content);
 }
