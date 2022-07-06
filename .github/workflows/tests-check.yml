@@ -21,9 +21,13 @@ jobs:
           # Specify the PHP version
           php-version: '8.1'
 
-      - name: Install
+      - name: Installation
         # Install project
         run: make install
+
+      - name: Linting
+        # Lint project
+        run: make lint
 
       - name: Run test & publish code coverage
         uses: paambaati/codeclimate-action@v3.0.0
