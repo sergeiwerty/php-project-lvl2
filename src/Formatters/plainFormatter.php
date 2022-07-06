@@ -23,23 +23,23 @@ function prepareValue(mixed $value): string
 }
 
 /**
- * @param array<int, array> $astTreeData
+ * @param array<int, mixed> $astTreeData
  * @return string
  */
 function makeFormattedDiff(array $astTreeData): string
 {
     $statusTree = [
-        'added' => function ($path, $node) {
+        'added' => function (string $path, array $node) {
             [key($node) => ['key' => $key, 'node' => ['value' => $value]]] = $node;
             $value = prepareValue($value);
             return "Property '{$path}' was added with value: {$value}";
         },
         'deleted' => fn($path) => "Property '{$path}' was removed",
-        'nested' => function ($path, $node, $iterRender) {
+        'nested' => function (string $path, array $node, callable $iterRender) {
             [key($node) => ['key' => $key, 'node' => ['value' => $value, 'children' => $children]]] = $node;
             return $iterRender($children, $path);
         },
-        'changed' => function ($path, $node) {
+        'changed' => function (string $path, array $node) {
             [key($node) =>
                 ['node' =>
                     ['valueBeforeChange' => $nodeValueBefore, 'valueAfterChange' => $nodeValueAfter]
@@ -54,6 +54,7 @@ function makeFormattedDiff(array $astTreeData): string
 
     /**
      * @param array<int, array> $diff
+     * @param string|bool $pathComposition
      * @return string
      */
     $renderPlainDiff = function (array $diff, string|bool $pathComposition) use (&$renderPlainDiff, $statusTree) {
@@ -66,7 +67,15 @@ function makeFormattedDiff(array $astTreeData): string
              * @param array|null $initial
              * @return array
              */
-            function (array $acc, array $node, array|null $initial = []) use ($renderPlainDiff, $pathComposition, $statusTree) {
+            function (
+                array $acc,
+                array $node,
+                array|null $initial = []
+            ) use (
+                $renderPlainDiff,
+                $pathComposition,
+                $statusTree
+            ) {
                 [key($node) => ['status' => $status, 'key' => $key]] = $node;
                 $newPath = $pathComposition ? "{$pathComposition}.{$key}" : "{$key}";
                 $diffTypeHandler = $statusTree[$status];

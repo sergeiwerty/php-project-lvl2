@@ -8,6 +8,10 @@ const INDENT_SYMBOL = ' ';
 const INITIAL_INDENT_SIZE = 2;
 const EXTRA_INDENT_SIZE = 4;
 
+/**
+ * @param array<int, mixed> $astTreeData
+ * @return string
+ */
 function makeFormattedDiff(array $astTreeData): string
 {
     $addIndent = function ($depth, $initial) {
@@ -58,7 +62,7 @@ function makeFormattedDiff(array $astTreeData): string
             $minusKey = "{$indent}- {$key}";
             return $stringify($minusKey, $value, $depth);
         },
-        'nested' => function ($node, $indent, $depth, $iterRender) use ($stringify) {
+        'nested' => function ($node, $indent, $depth, $iterRender) {
             [key($node) => ['key' => $key, 'node' => ['value' => $value, 'children' => $children]]] = $node;
             $emptyKey = "{$indent}  {$key}";
             return ["{$emptyKey}: {", $iterRender($children, $depth + 1), "  {$indent}}"];
