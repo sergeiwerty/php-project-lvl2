@@ -42,7 +42,7 @@ function parse(string $fileName): array
         'json' =>
             fn($rawData) => json_decode($rawData, true)
     ];
-    print_r($mapping[$type]($content));
+//    print_r($mapping[$type]($content));
 
     return $mapping[$type]($content);
 }
