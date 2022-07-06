@@ -7,11 +7,11 @@ use function Differ\Parsers\Parser\parse;
 use function Differ\Formatters\JSONFormatter\makeFormattedDiff;
 
 /**
- * @param array<int, mixed> $firstFileContent
- * @param array<int, mixed> $secondFileContent
+ * @param string $firstFileContent
+ * @param string $secondFileContent
  * @return array<int, mixed>
  */
-function buildDiff(array $firstFileContent, array $secondFileContent,): array
+function buildDiff(string $firstFileContent, string $secondFileContent,): array
 {
     $iterAst = function ($currentNode1, $currentNode2) use (&$iterAst) {
         $merged = array_keys(array_merge($currentNode1, $currentNode2));

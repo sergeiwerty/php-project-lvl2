@@ -26,7 +26,7 @@ function getFileContent(string $fileName): array
     return [$fileContent, $fileType];
 }
 
-function parse(string $fileName)
+function parse(string $fileName): string
 {
     $rawData = getFileContent($fileName);
     [$content, $type] = $rawData;

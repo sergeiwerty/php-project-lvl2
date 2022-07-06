@@ -7,10 +7,10 @@ use Exception;
 /**
  * @param array<int, mixed> $astTreeData
  * @param string $format
- * @return string
+ * @return string|false
  * @throws Exception
  */
-function getFormattedDiff(array $astTreeData, string $format): string
+function getFormattedDiff(array $astTreeData, string $format): string|false
 {
     switch ($format) {
         case 'stylish':

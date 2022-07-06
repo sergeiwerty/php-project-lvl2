@@ -6,7 +6,7 @@ use function Differ\Parsers\Parser\parse;
 use function Differ\Differ\Builder\buildDiff;
 use function Differ\Formatters\getFormattedDiff;
 
-function genDiff(string $firstPath, string $secondPath, string $format = 'stylish'): string
+function genDiff(string $firstPath, string $secondPath, string $format = 'stylish'): string|false
 {
     $firstData = parse($firstPath);
     $secondData = parse($secondPath);
