@@ -22,6 +22,10 @@ function prepareValue(mixed $value): string
     return "{$value}";
 }
 
+/**
+ * @param array<int, array> $astTreeData
+ * @return string
+ */
 function makeFormattedDiff(array $astTreeData): string
 {
     $statusTree = [
@@ -48,14 +52,28 @@ function makeFormattedDiff(array $astTreeData): string
         'unchanged' => fn() => [],
     ];
 
-    $renderPlainDiff = function ($diff, $pathComposition) use (&$renderPlainDiff, $statusTree) {
+    /**
+     * @param array<int, array> $diff
+     * @return string
+     */
+    $renderPlainDiff = function (array $diff, string|bool $pathComposition) use (&$renderPlainDiff, $statusTree) {
         $diffCopy = $diff;
-        $lines = array_reduce($diffCopy, function ($acc, $node, $initial = []) use ($renderPlainDiff, $pathComposition, $statusTree) {
-            [key($node) => ['status' => $status, 'key' => $key]] = $node;
-            $newPath = $pathComposition ? "{$pathComposition}.{$key}" : "{$key}";
-            $diffTypeHandler = $statusTree[$status];
-            return flatten([$acc, $diffTypeHandler($newPath, $node, $renderPlainDiff)]);
-        }, []);
+        $lines = array_reduce(
+            $diffCopy,
+            /**
+             * @param array<int, string> $acc
+             * @param array<string, array> $node
+             * @param array|null $initial
+             * @return array
+             */
+            function (array $acc, array $node, array|null $initial = []) use ($renderPlainDiff, $pathComposition, $statusTree) {
+                [key($node) => ['status' => $status, 'key' => $key]] = $node;
+                $newPath = $pathComposition ? "{$pathComposition}.{$key}" : "{$key}";
+                $diffTypeHandler = $statusTree[$status];
+                return flatten([$acc, $diffTypeHandler($newPath, $node, $renderPlainDiff)]);
+            },
+            []
+        );
 
         return implode("\n", $lines);
     };
