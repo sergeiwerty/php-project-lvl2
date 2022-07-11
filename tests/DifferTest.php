@@ -8,29 +8,52 @@ use function Differ\Differ\genDiff;
 
 class DifferTest extends TestCase
 {
-    /**
-     * @dataProvider equalityNestedProvider
-     */
-    public function testNestedEquals($expected, $fileName1, $fileName2, $format = 'stylish')
+    public function getDataByFileName($filename): string
     {
-        $this->assertEquals($expected, genDiff($fileName1, $fileName2, $format));
+        return trim(file_get_contents(__DIR__ . "/fixtures/" . $filename));
+    }
+    
+    /**
+     * @dataProvider nestedFilesProvider
+     */
+    public function testGendiffWithStylishFormatter($fileName1, $fileName2)
+    {
+        $expectedStylish = $this->getDataByFileName("expectedStylish.txt");
+        $this->assertEquals($expectedStylish, genDiff($fileName1, $fileName2, 'stylish'));
+    }
+    
+    /**
+     * @dataProvider nestedFilesProvider
+     */
+    public function testGendiffWithPlainFormatter($fileName1, $fileName2)
+    {
+        $expectedPlain = $this->getDataByFileName("expectedPlain.txt");
+        $this->assertEquals($expectedPlain, genDiff($fileName1, $fileName2, 'plain'));
+    }
+    
+    /**
+     * @dataProvider nestedFilesProvider
+     */
+    public function testGendiffWithJsonFormatter($fileName1, $fileName2)
+    {
+        $expectedJSON = $this->getDataByFileName("expectedJSON.txt");
+        $this->assertEquals($expectedJSON, genDiff($fileName1, $fileName2, 'json'));    
+    }
+    
+    /**
+     * @dataProvider nestedFilesProvider
+     */
+    public function testGendiffWithDefaultFormatter($fileName1, $fileName2)
+    {        
+        $expectedStylish = $this->getDataByFileName("expectedStylish.txt");
+        $this->assertEquals($expectedStylish, genDiff($fileName1, $fileName2));
     }
 
-    public function equalityNestedProvider()
+    public function nestedFilesProvider()
     {
-        $expectedStylish = trim(file_get_contents(__DIR__ . "/fixtures/" . "expectedStylish.txt"));
-        $expectedPlain = trim(file_get_contents(__DIR__ . "/fixtures/" . "expectedPlain.txt"));
-        $expectedJSON = trim(file_get_contents(__DIR__ . "/fixtures/" . "expectedJSON.txt"));
-
         return [
-            [$expectedStylish, '../tests/fixtures/nestedJson1.json', '../tests/fixtures/nestedJson2.json'],
-            [$expectedStylish, '../tests/fixtures/nestedYaml1.yaml', '../tests/fixtures/nestedYaml2.yaml'],
-            [$expectedStylish, '../tests/fixtures/nestedJson1.json', '../tests/fixtures/nestedJson2.json', 'stylish'],
-            [$expectedStylish, '../tests/fixtures/nestedYaml1.yaml', '../tests/fixtures/nestedYaml2.yaml', 'stylish'],
-            [$expectedPlain, '../tests/fixtures/nestedJson1.json', '../tests/fixtures/nestedJson2.json', 'plain'],
-            [$expectedPlain, '../tests/fixtures/nestedYaml1.yaml', '../tests/fixtures/nestedYaml2.yaml', 'plain'],
-            [$expectedJSON, '../tests/fixtures/nestedJson1.json', '../tests/fixtures/nestedJson2.json', 'json'],
-            [$expectedJSON, '../tests/fixtures/nestedYaml1.yaml', '../tests/fixtures/nestedYaml2.yaml', 'json'],
+            ['../tests/fixtures/nestedJson1.json', '../tests/fixtures/nestedJson2.json'],
+            ['../tests/fixtures/nestedYaml1.yaml', '../tests/fixtures/nestedYaml2.yaml'],
         ];
     }
 }
