@@ -37,7 +37,7 @@ class DifferTest extends TestCase
     public function testGendiffWithJsonFormatter($fileName1, $fileName2)
     {
         $expectedJSON = $this->getDataByFileName("expectedJSON.txt");
-        $this->assertEquals($expectedJSON, genDiff($fileName1, $fileName2, 'json'));    
+        $this->assertEquals($expectedJSON, genDiff($fileName1, $fileName2, 'json'));
     }
     
     /**
@@ -48,7 +48,7 @@ class DifferTest extends TestCase
         $expectedStylish = $this->getDataByFileName("expectedStylish.txt");
         $this->assertEquals($expectedStylish, genDiff($fileName1, $fileName2));
     }
-
+    
     public function nestedFilesProvider()
     {
         return [
