@@ -12,7 +12,7 @@ class DifferTest extends TestCase
     {
         return trim(file_get_contents(__DIR__ . "/fixtures/" . $filename));
     }
-    
+
     /**
      * @dataProvider nestedFilesProvider
      */
@@ -21,7 +21,7 @@ class DifferTest extends TestCase
         $expectedStylish = $this->getDataByFileName("expectedStylish.txt");
         $this->assertEquals($expectedStylish, genDiff($fileName1, $fileName2, 'stylish'));
     }
-    
+
     /**
      * @dataProvider nestedFilesProvider
      */
@@ -30,7 +30,7 @@ class DifferTest extends TestCase
         $expectedPlain = $this->getDataByFileName("expectedPlain.txt");
         $this->assertEquals($expectedPlain, genDiff($fileName1, $fileName2, 'plain'));
     }
-    
+
     /**
      * @dataProvider nestedFilesProvider
      */
@@ -39,16 +39,16 @@ class DifferTest extends TestCase
         $expectedJSON = $this->getDataByFileName("expectedJSON.txt");
         $this->assertEquals($expectedJSON, genDiff($fileName1, $fileName2, 'json'));
     }
-    
+
     /**
      * @dataProvider nestedFilesProvider
      */
     public function testGendiffWithDefaultFormatter($fileName1, $fileName2)
-    {        
+    {
         $expectedStylish = $this->getDataByFileName("expectedStylish.txt");
         $this->assertEquals($expectedStylish, genDiff($fileName1, $fileName2));
     }
-    
+
     public function nestedFilesProvider()
     {
         return [
