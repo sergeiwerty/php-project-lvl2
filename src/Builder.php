@@ -1,10 +1,8 @@
 <?php
 
-namespace Differ\Differ\Builder;
+namespace Differ\Builder;
 
 use function Functional\sort;
-use function Differ\Parsers\Parser\parse;
-use function Differ\Formatters\JSONFormatter\makeFormattedDiff;
 
 /**
  * @param array<int, mixed> $firstFileContent

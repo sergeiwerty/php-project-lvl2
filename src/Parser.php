@@ -1,6 +1,6 @@
 <?php
 
-namespace Differ\Parsers\Parser;
+namespace Differ\Parser;
 
 use Symfony\Component\Yaml\Yaml;
 
@@ -10,8 +10,6 @@ use Symfony\Component\Yaml\Yaml;
  */
 function getFileContent(string $fileName): array
 {
-//    $parts = [__DIR__, '../../tests/fixtures', $fileName];
-//    $absolutePath = realpath(implode('/', $parts));
 
     if (strpos($fileName, '/') === 0) {
         $parts = [$fileName];
@@ -20,7 +18,7 @@ function getFileContent(string $fileName): array
     }
     $absolutePath = implode('', $parts);
 
-
+    print_r($absolutePath);
     $fileContent = file_get_contents($absolutePath);
     $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
     return [$fileContent, $fileType];

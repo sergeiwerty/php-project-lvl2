@@ -10,50 +10,94 @@ class DifferTest extends TestCase
 {
     public function getDataByFileName($filename): string
     {
-        return trim(file_get_contents(__DIR__ . "/fixtures/" . $filename));
+        return trim(file_get_contents(__DIR__."/fixtures/".$filename));
     }
+
+    public $pathPrefix = 'tests/fixtures/data';
 
     /**
      * @dataProvider nestedFilesProvider
      */
-    public function testGendiffWithStylishFormatter($fileName1, $fileName2)
+    public function testGendiffWithStylishFormatter()
     {
         $expectedStylish = $this->getDataByFileName("expectedStylish.txt");
-        $this->assertEquals($expectedStylish, genDiff($fileName1, $fileName2, 'stylish'));
+        array_map(function ($format) use ($expectedStylish) {
+            $this->assertEquals(
+                $expectedStylish,
+                genDiff(
+                    "{$this->pathPrefix}1.{$format}",
+                    "{$this->pathPrefix}2.{$format}",
+                    'stylish'
+                )
+            );
+        },
+            func_get_args()
+        );
     }
 
     /**
      * @dataProvider nestedFilesProvider
      */
-    public function testGendiffWithPlainFormatter($fileName1, $fileName2)
+    public function testGendiffWithPlainFormatter()
     {
         $expectedPlain = $this->getDataByFileName("expectedPlain.txt");
-        $this->assertEquals($expectedPlain, genDiff($fileName1, $fileName2, 'plain'));
+        array_map(function ($format) use ($expectedPlain) {
+            $this->assertEquals(
+                $expectedPlain,
+                genDiff(
+                    "{$this->pathPrefix}1.{$format}",
+                    "{$this->pathPrefix}2.{$format}",
+                    'plain'
+                )
+            );
+        },
+            func_get_args()
+        );
     }
 
     /**
      * @dataProvider nestedFilesProvider
      */
-    public function testGendiffWithJsonFormatter($fileName1, $fileName2)
+    public function testGendiffWithJsonFormatter()
     {
         $expectedJSON = $this->getDataByFileName("expectedJSON.txt");
-        $this->assertEquals($expectedJSON, genDiff($fileName1, $fileName2, 'json'));
+        array_map(function ($format) use ($expectedJSON) {
+            $this->assertEquals(
+                $expectedJSON,
+                genDiff(
+                    "{$this->pathPrefix}1.{$format}",
+                    "{$this->pathPrefix}2.{$format}",
+                    'json'
+                )
+            );
+        },
+            func_get_args()
+        );
     }
 
     /**
      * @dataProvider nestedFilesProvider
      */
-    public function testGendiffWithDefaultFormatter($fileName1, $fileName2)
+    public function testGendiffWithDefaultFormatter()
     {
         $expectedStylish = $this->getDataByFileName("expectedStylish.txt");
-        $this->assertEquals($expectedStylish, genDiff($fileName1, $fileName2));
+        array_map(function ($format) use ($expectedStylish) {
+            $this->assertEquals(
+                $expectedStylish,
+                genDiff(
+                    "{$this->pathPrefix}1.{$format}",
+                    "{$this->pathPrefix}2.{$format}",
+                )
+            );
+        },
+            func_get_args()
+        );
     }
 
     public function nestedFilesProvider()
     {
         return [
-            ['../tests/fixtures/nestedJson1.json', '../tests/fixtures/nestedJson2.json'],
-            ['../tests/fixtures/nestedYaml1.yaml', '../tests/fixtures/nestedYaml2.yaml'],
+            ['json', 'yaml']
         ];
     }
 }

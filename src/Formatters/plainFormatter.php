@@ -3,7 +3,6 @@
 namespace Differ\Formatters\plainFormatter;
 
 use function Functional\flatten;
-use function Functional\reduce_left;
 
 function prepareValue(mixed $value): string
 {

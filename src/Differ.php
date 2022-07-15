@@ -2,8 +2,8 @@
 
 namespace Differ\Differ;
 
-use function Differ\Parsers\Parser\parse;
-use function Differ\Differ\Builder\buildDiff;
+use function Differ\Parser\parse;
+use function Differ\Builder\buildDiff;
 use function Differ\Formatters\getFormattedDiff;
 
 function genDiff(string $firstPath, string $secondPath, string $format = 'stylish'): string|false
