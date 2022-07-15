@@ -50,8 +50,7 @@ class DifferTest extends TestCase
                 )
             );
         },
-            func_get_args()
-        );
+            func_get_args());
     }
 
     /**
