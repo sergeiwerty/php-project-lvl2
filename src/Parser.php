@@ -18,7 +18,6 @@ function getFileContent(string $fileName): array
     }
     $absolutePath = implode('', $parts);
 
-    print_r($absolutePath);
     $fileContent = file_get_contents($absolutePath);
     $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
     return [$fileContent, $fileType];
@@ -40,7 +39,6 @@ function parse(string $fileName): array
         'json' =>
             fn($rawData) => json_decode($rawData, true)
     ];
-//    print_r($mapping[$type]($content));
 
     return $mapping[$type]($content);
 }
