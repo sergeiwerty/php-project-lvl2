@@ -10,7 +10,7 @@ class DifferTest extends TestCase
 {
     public function getDataByFileName($filename): string
     {
-        return trim(file_get_contents(__DIR__."/fixtures/".$filename));
+        return trim(file_get_contents(__DIR__ . "/fixtures/" . $filename));
     }
 
     public $pathPrefix = 'tests/fixtures/data';
@@ -31,8 +31,7 @@ class DifferTest extends TestCase
                 )
             );
         },
-            func_get_args()
-        );
+            func_get_args());
     }
 
     /**
@@ -71,8 +70,7 @@ class DifferTest extends TestCase
                 )
             );
         },
-            func_get_args()
-        );
+            func_get_args());
     }
 
     /**
@@ -90,8 +88,7 @@ class DifferTest extends TestCase
                 )
             );
         },
-            func_get_args()
-        );
+            func_get_args());
     }
 
     public function nestedFilesProvider()
