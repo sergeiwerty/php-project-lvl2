@@ -5,30 +5,11 @@ namespace Differ\Parser;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * @param string $fileName
- * @return array<int, string|false>
- */
-function getFileContent(string $fileName): array
-{
-
-    if (strpos($fileName, '/') === 0) {
-        $parts = [$fileName];
-    } else {
-        $parts = [__DIR__, '/../', $fileName];
-    }
-    $absolutePath = implode('', $parts);
-
-    $fileContent = file_get_contents($absolutePath);
-    $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
-    return [$fileContent, $fileType];
-}
-
-/**
+ * @param array<int, string|false> $rawData
  * @return array<int, mixed>
  */
-function parse(string $fileName): array
+function parse(array $rawData): array
 {
-    $rawData = getFileContent($fileName);
     [$content, $type] = $rawData;
 
     $mapping = [

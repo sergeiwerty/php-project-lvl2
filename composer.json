@@ -9,11 +9,10 @@
     "files": [
       "src/Differ.php",
       "src/Parser.php",
-      "src/Builder.php",
-      "src/Formatters.php",
-      "src/Formatters/stylishFormatter.php",
-      "src/Formatters/plainFormatter.php",
-      "src/Formatters/JSONFormatter.php"
+      "src/Formatter.php",
+      "src/Formatters/stylish.php",
+      "src/Formatters/plain.php",
+      "src/Formatters/JSON.php"
     ]
   },
   "autoload-dev": {

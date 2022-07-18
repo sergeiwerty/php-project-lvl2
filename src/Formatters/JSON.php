@@ -1,6 +1,6 @@
 <?php
 
-namespace Differ\Formatters\JSONFormatter;
+namespace Differ\Formatters\JSON;
 
 /**
  * @param array<int, mixed> $astTreeData

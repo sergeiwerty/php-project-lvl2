@@ -26,14 +26,13 @@ Options:
   --format <fmt>                Report format [default: stylish]
 DOC;
 
-$params = array(
+$params = [
     'argv' => array_slice($_SERVER['argv'], 1),
     'help' => true,
     'version' => null,
     'optionsFirst' => false,
-);
+];
 
 $args = Docopt::handle($doc, ['version' => '1.0']);
-$my = $_SERVER;
 
 echo(genDiff($args['<firstFile>'], $args['<secondFile>'], $args['--format']));

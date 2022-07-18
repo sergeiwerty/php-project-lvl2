@@ -1,6 +1,6 @@
 <?php
 
-namespace Differ\Formatters;
+namespace Differ\Formatter;
 
 use Exception;
 
@@ -14,11 +14,11 @@ function getFormattedDiff(array $astTreeData, string $format): string|false
 {
     switch ($format) {
         case 'stylish':
-            return stylishFormatter\makeFormattedDiff($astTreeData);
+            return \Differ\Formatters\stylish\makeFormattedDiff($astTreeData);
         case 'plain':
-            return plainFormatter\makeFormattedDiff($astTreeData);
+            return \Differ\Formatters\plain\makeFormattedDiff($astTreeData);
         case 'json':
-            return JSONFormatter\makeFormattedDiff($astTreeData);
+            return \Differ\Formatters\JSON\makeFormattedDiff($astTreeData);
         default:
             throw new Exception("Unknown format: {$format}!");
     }

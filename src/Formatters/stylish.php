@@ -1,6 +1,6 @@
 <?php
 
-namespace Differ\Formatters\stylishFormatter;
+namespace Differ\Formatters\stylish;
 
 use function Functional\flatten;
 
