@@ -35,22 +35,20 @@ function makeFormattedDiff(array $astTreeData): string
 
     $stringify = function ($key, $value, $depth) use ($addIndent, $renderInnerValues) {
         $indent = $addIndent($depth, INITIAL_INDENT_SIZE);
-
+        if (is_array($value)) {
+            return ["{$key}: {", $renderInnerValues($value, $depth + 1), "  {$indent}}"];
+        }
         if ('' === $value) {
             return "{$key}: ";
         }
-
-        switch(gettype($value)) {
-            case 'array':
-                return ["{$key}: {", $renderInnerValues($value, $depth + 1), "  {$indent}}"];
-            case 'NULL':
-                return "{$key}: null";
-            case 'boolean':
-                $correctValue = trim(var_export($value, true), "'");
-                return "{$key}: {$correctValue}";
-            default:
-                return "{$key}: {$value}";
+        if (is_null($value)) {
+            return "{$key}: null";
         }
+        if (is_bool($value)) {
+            $correctValue = trim(var_export($value, true), "'");
+            return "{$key}: {$correctValue}";
+        }
+        return "{$key}: {$value}";
     };
 
     $statusTree = [
