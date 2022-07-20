@@ -18,10 +18,9 @@ class DifferTest extends TestCase
     /**
      * @dataProvider nestedFilesProvider
      */
-    public function testGendiffWithStylishFormatter()
+    public function testGendiffWithStylishFormatter($format)
     {
         $expectedStylish = $this->getDataByFileName("expectedStylish.txt");
-        array_map(function ($format) use ($expectedStylish) {
             $this->assertEquals(
                 $expectedStylish,
                 genDiff(
@@ -30,17 +29,14 @@ class DifferTest extends TestCase
                     'stylish'
                 )
             );
-        },
-            func_get_args());
     }
 
     /**
      * @dataProvider nestedFilesProvider
      */
-    public function testGendiffWithPlainFormatter()
+    public function testGendiffWithPlainFormatter($format)
     {
         $expectedPlain = $this->getDataByFileName("expectedPlain.txt");
-        array_map(function ($format) use ($expectedPlain) {
             $this->assertEquals(
                 $expectedPlain,
                 genDiff(
@@ -49,17 +45,14 @@ class DifferTest extends TestCase
                     'plain'
                 )
             );
-        },
-            func_get_args());
     }
 
     /**
      * @dataProvider nestedFilesProvider
      */
-    public function testGendiffWithJsonFormatter()
+    public function testGendiffWithJsonFormatter($format)
     {
         $expectedJSON = $this->getDataByFileName("expectedJSON.txt");
-        array_map(function ($format) use ($expectedJSON) {
             $this->assertEquals(
                 $expectedJSON,
                 genDiff(
@@ -68,17 +61,14 @@ class DifferTest extends TestCase
                     'json'
                 )
             );
-        },
-            func_get_args());
     }
 
     /**
      * @dataProvider nestedFilesProvider
      */
-    public function testGendiffWithDefaultFormatter()
+    public function testGendiffWithDefaultFormatter($format)
     {
         $expectedStylish = $this->getDataByFileName("expectedStylish.txt");
-        array_map(function ($format) use ($expectedStylish) {
             $this->assertEquals(
                 $expectedStylish,
                 genDiff(
@@ -86,14 +76,13 @@ class DifferTest extends TestCase
                     "{$this->pathPrefix}2.{$format}",
                 )
             );
-        },
-            func_get_args());
     }
 
     public function nestedFilesProvider()
     {
         return [
-            ['json', 'yaml']
+            ['json'],
+            ['yaml']
         ];
     }
 }
